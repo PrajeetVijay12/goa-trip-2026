@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Goa Trip Dec 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow reading column; journey legs drawn as rail ticket stubs on a dotted route line */
+:root {
+  --bg: #f3f6f5; --surface: #ffffff; --fg: #15211e; --muted: #5b6b66; --line: #d6dfdc;
+  --accent: #0b7a70; --accent-soft: #dcefec;
+  --warn: #9a5b00; --warn-soft: #fbecd3; --ok: #1d7a3a; --ok-soft: #dcf1e1;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1715; --surface: #17221f; --fg: #e4ece9; --muted: #93a6a0; --line: #2a3935;
+  --accent: #4cc3b6; --accent-soft: #163a36;
+  --warn: #f0b75a; --warn-soft: #3a2c12; --ok: #6fd38c; --ok-soft: #173322; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1715; --surface: #17221f; --fg: #e4ece9; --muted: #93a6a0; --line: #2a3935;
+  --accent: #4cc3b6; --accent-soft: #163a36;
+  --warn: #f0b75a; --warn-soft: #3a2c12; --ok: #6fd38c; --ok-soft: #173322; color-scheme: dark }
+
+body { background: var(--bg); color: var(--fg); font: 400 1.0625rem/1.55 var(--f-body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-block: 2.5rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 2.75rem; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2.1rem, 6vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.55rem; }
+h2 .ico { font-size: 1.35rem; width: 2.3rem; height: 2.3rem; display: inline-grid; place-items: center; border-radius: 10px; background: var(--accent-soft); flex: none; }
+h3 { font-size: 1.05rem; font-weight: 500; }
+p { margin: 0; }
+.eyebrow { font: 500 0.75rem/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.muted { color: var(--muted); }
+.emo { margin-right: 0.35rem; }
+section { display: flex; flex-direction: column; gap: 1rem; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+header { display: flex; flex-direction: column; gap: 0.9rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.85rem; font-size: 0.95rem; }
+.fact b { font-weight: 600; }
+
+/* switches */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.switch-bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 0.6rem; margin-block: -0.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.switch { display: flex; gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
+.switch button { flex: 1; min-width: 0; font: 600 0.98rem/1.2 var(--f-body); border: 0; background: transparent; color: var(--muted); padding: 0.65rem 0.6rem; border-radius: 999px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.switch button:hover { color: var(--fg); }
+.switch button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+.switch button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.switch-note { font-size: 0.88rem; color: var(--muted); text-align: center; }
+.route-switch { border-radius: 14px; flex-wrap: wrap; }
+.route-switch button { flex: 1 1 9rem; border-radius: 10px; font-size: 0.95rem; padding: 0.6rem; }
+.route-switch button small { display: block; font-weight: 400; font-size: 0.78rem; opacity: 0.85; margin-top: 0.15rem; }
+@media (prefers-reduced-motion: reduce) { .switch button { transition: none; } }
+
+/* trip at a glance */
+.glance { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+@media (max-width: 560px) { .glance { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gday { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.65rem 0.4rem; text-align: center; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.gday.travel { background: var(--accent-soft); border-color: transparent; }
+.gday .d { font: 500 0.72rem/1 var(--f-mono); color: var(--muted); letter-spacing: 0.04em; }
+.gday .e { font-size: 1.5rem; line-height: 1.2; }
+.gday .t { font-size: 0.85rem; line-height: 1.25; font-weight: 600; }
+
+/* route cards */
+.routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+@media (max-width: 560px) { .routes { grid-template-columns: 1fr; } }
+.rcard { text-align: left; font: inherit; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 0.85rem 1rem; cursor: pointer; display: flex; flex-direction: column; gap: 0.55rem; min-width: 0; transition: border-color 0.15s, background 0.15s; }
+.rcard:hover { border-color: var(--accent); }
+.rcard[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.rcard:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rtop { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.rname { font: 700 1.05rem/1.2 var(--f-display); }
+.rtrains { font: 500 0.76rem/1.3 var(--f-mono); color: var(--muted); }
+.rgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem; }
+.rk { display: block; font: 500 0.66rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.25rem; }
+.rv { font: 500 0.92rem/1.2 var(--f-mono); font-variant-numeric: tabular-nums; }
+.rv.price { font: 700 1rem/1.2 var(--f-display); }
+@media (prefers-reduced-motion: reduce) { .rcard { transition: none; } }
+
+/* timeline chart */
+.chart-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding-block: 1rem; padding-left: 1rem; padding-right: 1rem; }
+.chart { min-width: 560px; display: grid; grid-template-columns: 4.6rem 1fr 4.4rem; row-gap: 0.6rem; column-gap: 0.7rem; align-items: center; font-size: 0.85rem; padding-right: 0.8rem; }
+.clabel { font: 500 0.8rem/1.2 var(--f-mono); color: var(--muted); }
+.clabel.on, .carr.on { color: var(--accent); font-weight: 700; }
+.carr { font: 500 0.8rem/1.2 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--muted); }
+.track { position: relative; height: 22px; background: var(--bg); border-radius: 5px; }
+.seg { position: absolute; top: 3px; bottom: 3px; border-radius: 4px; }
+.seg.train { background: var(--accent); }
+.seg.wait { background: repeating-linear-gradient(45deg, var(--muted) 0 2px, transparent 2px 6px); opacity: 0.55; }
+.seg.cab { background: var(--warn); }
+.cut { position: absolute; top: -5px; bottom: -5px; left: 88.89%; border-left: 2px dashed var(--ok); }
+.axis { position: relative; height: 1.1rem; }
+.axis span { position: absolute; transform: translateX(-50%); font: 500 0.7rem/1 var(--f-mono); color: var(--muted); white-space: nowrap; }
+.axis span.cutlbl { color: var(--ok); top: 1.15rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.85rem; color: var(--muted); margin-top: 1.3rem; }
+.legend i { display: inline-block; width: 0.9rem; height: 0.6rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: middle; }
+
+.route-block { display: flex; flex-direction: column; gap: 1rem; }
+.subhead { font: 700 1.1rem/1.2 var(--f-display); margin-top: 0.6rem; }
+.verdict { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+/* route */
+.route { position: relative; display: flex; flex-direction: column; gap: 0.85rem; padding-left: 1.6rem; }
+.route::before { content: ""; position: absolute; left: 0.45rem; top: 0.6rem; bottom: 0.6rem; border-left: 2px dotted var(--line); }
+.day { font: 500 0.8rem/1 var(--f-mono); color: var(--muted); letter-spacing: 0.04em; margin-top: 0.6rem; position: relative; }
+.day::before { content: ""; position: absolute; left: -1.53rem; top: -0.05rem; width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--accent); }
+.stub { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; display: grid; grid-template-columns: 1fr auto; min-width: 0; }
+.stub-main { padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.stub-side { border-left: 2px dashed var(--line); padding: 0.85rem 1rem; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 0.35rem; text-align: right; }
+.stub h3 { display: flex; gap: 0.45rem; align-items: baseline; }
+.stub-emo { font-size: 1.15rem; }
+.trainno { font: 500 0.85rem/1 var(--f-mono); color: var(--accent); }
+.times { font: 500 0.95rem/1.3 var(--f-mono); font-variant-numeric: tabular-nums; }
+.fare { font: 700 1.15rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.pill { font: 500 0.72rem/1 var(--f-mono); padding: 0.3rem 0.5rem; border-radius: 4px; white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.info { background: var(--accent-soft); color: var(--accent); }
+.note-leg { display: flex; gap: 0.7rem; align-items: flex-start; border: 1px dashed var(--line); border-radius: 10px; padding: 0.7rem 1rem; color: var(--muted); font-size: 0.98rem; }
+.note-leg b { color: var(--fg); font-weight: 600; }
+.big { font-size: 1.3rem; line-height: 1.2; flex: none; }
+@media (max-width: 480px) {
+  .stub { grid-template-columns: 1fr; }
+  .stub-side { border-left: 0; border-top: 2px dashed var(--line); flex-direction: row; align-items: center; justify-content: space-between; }
+}
+.callout { display: flex; gap: 0.7rem; align-items: flex-start; background: var(--accent-soft); color: var(--fg); border-radius: 10px; padding: 0.9rem 1rem; font-size: 0.98rem; }
+.callout b { color: var(--accent); }
+
+/* stay */
+.stay { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.stay-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; align-items: baseline; }
+.price { font: 700 1.6rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.price s { font: 400 0.95rem var(--f-body); color: var(--muted); margin-left: 0.4rem; }
+
+/* budget */
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+th, td { text-align: left; padding: 0.65rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 0.72rem/1.2 var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td small { display: block; color: var(--muted); font-size: 0.85rem; }
+tr.total td { font-weight: 600; border-bottom: 0; background: var(--accent-soft); }
+.tag { font: 500 0.68rem/1 var(--f-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 0.15rem 0.3rem; margin-left: 0.35rem; white-space: nowrap; }
+
+ol.steps { margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.6rem; }
+ol.steps li { padding-left: 0.2rem; }
+ol.steps li::marker { font-family: var(--f-mono); color: var(--accent); }
+ul.plain { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem; }
+footer { font-size: 0.88rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">🚆 Chennai → Bangalore → Goa · trains only</span>
+  <h1>🌴 Goa Trip, December 2026 🏖️</h1>
+  <p class="muted">Prajeet, Prajith, Priyan, Pooja, Deepthi and one more. Leave Chennai on the morning of Wed 16 Dec, in Goa before 8 AM on Thu 17 Dec.</p>
+  <div class="facts">
+    <span class="fact">👥 <b>6</b> people</span>
+    <span class="fact">🌙 <b>3</b> nights in Goa</span>
+    <span class="fact" data-plan="airbnb">🏠 <b>Airbnb, Arpora</b></span>
+    <span class="fact" data-plan="cm" hidden>🏨 <b>Club Mahindra</b></span>
+    <span class="fact" data-plan="airbnb" data-route="1">💰 About <b>₹17,600</b> each</span>
+    <span class="fact" data-plan="airbnb" data-route="2" hidden>💰 About <b>₹17,300</b> each</span>
+    <span class="fact" data-plan="airbnb" data-route="3" hidden>💰 About <b>₹17,500</b> each</span>
+    <span class="fact" data-plan="airbnb" data-route="4" hidden>💰 About <b>₹18,000</b> each</span>
+    <span class="fact" data-plan="cm" hidden>💰 About <b>₹13,900</b> + CM charges</span>
+    <span class="fact">📅 <b>16 → 21 Dec</b></span>
+  </div>
+</header>
+
+<div class="switch-bar">
+  <div class="switch" role="group" aria-label="Choose stay plan">
+    <button type="button" id="plan-airbnb" data-set="airbnb" aria-pressed="true">🏡 Plan A · Airbnb</button>
+    <button type="button" id="plan-cm" data-set="cm" aria-pressed="false">🏨 Plan B · Club Mahindra</button>
+  </div>
+  <p class="switch-note" data-plan="airbnb">Free cancellation before 16 Dec</p>
+  <p class="switch-note" data-plan="cm" hidden>If Club Mahindra comes through. Uses train route 1.</p>
+</div>
+
+<section>
+  <h2><span class="ico">🗓️</span>Trip at a glance</h2>
+  <div class="glance">
+    <div class="gday travel"><span class="d">WED 16</span><span class="e">🚆</span><span class="t">Travel day</span></div>
+    <div class="gday"><span class="d">THU 17</span><span class="e">🏖️</span><span class="t">Reach Goa</span></div>
+    <div class="gday"><span class="d">FRI 18</span><span class="e">🌴</span><span class="t">Goa</span></div>
+    <div class="gday"><span class="d">SAT 19</span><span class="e">🌴</span><span class="t">Goa</span></div>
+    <div class="gday"><span class="d">SUN 20</span><span class="e">🌇</span><span class="t">Last day, night train</span></div>
+    <div class="gday travel"><span class="d">MON 21</span><span class="e">🏠</span><span class="t">Home 7:20 PM</span></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="ico">🚆</span>Train plan</h2>
+  <p class="muted">Tap a route to see its trains, budget and booking list.</p>
+  <div class="routes" role="group" aria-label="Choose train route" data-plan="airbnb">
+    <button type="button" class="rcard" id="route-1" data-route-set="1" aria-pressed="true">
+      <span class="rtop"><span class="rname">✅ Route 1 · Easy</span><span class="pill info">5 hrs spare</span></span>
+      <span class="rtrains">12007 Shatabdi → 17309 to Madgaon</span>
+      <span class="rgrid"><span><span class="rk">Leave</span><span class="rv">6:00 AM</span></span><span><span class="rk">In Goa</span><span class="rv">3:25 AM</span></span><span><span class="rk">Each</span><span class="rv price">₹17,586</span></span></span>
+    </button>
+    <button type="button" class="rcard" id="route-2" data-route-set="2" aria-pressed="false">
+      <span class="rtop"><span class="rname">💸 Route 2 · Cheapest</span><span class="pill info">All 3AC</span></span>
+      <span class="rtrains">22365 → 17309 to Madgaon</span>
+      <span class="rgrid"><span><span class="rk">Leave</span><span class="rv">8:00 AM</span></span><span><span class="rk">In Goa</span><span class="rv">3:25 AM</span></span><span><span class="rk">Each</span><span class="rv price">₹17,261</span></span></span>
+    </button>
+    <button type="button" class="rcard" id="route-3" data-route-set="3" aria-pressed="false">
+      <span class="rtop"><span class="rname">⚡ Route 3 · Earliest</span><span class="pill info">Pre-dawn start</span></span>
+      <span class="rtrains">MFP SMVB Exp → 17316 to Madgaon</span>
+      <span class="rgrid"><span><span class="rk">Leave</span><span class="rv">3:05 AM</span></span><span><span class="rk">In Goa</span><span class="rv">1:30 AM</span></span><span><span class="rk">Each</span><span class="rv price">₹17,476</span></span></span>
+    </button>
+    <button type="button" class="rcard" id="route-4" data-route-set="4" aria-pressed="false">
+      <span class="rtop"><span class="rname">🛡️ Route 4 · Via Londa</span><span class="pill warn">After 8 AM</span></span>
+      <span class="rtrains">22601 → 16589 Rani Chennamma → cab</span>
+      <span class="rgrid"><span><span class="rk">Leave</span><span class="rv">10:25 AM</span></span><span><span class="rk">In Goa</span><span class="rv">~11:30 AM</span></span><span><span class="rk">Each</span><span class="rv price">₹18,032</span></span></span>
+    </button>
+  </div>
+
+  <div class="chart-wrap" role="img" aria-label="Timeline of the four routes from Wednesday 16 December midnight to Thursday 17 December noon. Routes 1 to 3 reach Goa before 8 AM; route 4 reaches about 11:30 AM.">
+    <div class="chart">
+      <span class="clabel" data-chart-route="1">Route 1</span>
+      <div class="track"><span class="seg train" style="left:16.67%;width:12.5%"></span><span class="seg wait" style="left:29.17%;width:13.89%"></span><span class="seg train" style="left:43.06%;width:33.11%"></span><span class="seg cab" style="left:76.67%;width:3.47%"></span><span class="cut"></span></div>
+      <span class="carr" data-chart-route="1">3:25 AM</span>
+
+      <span class="clabel" data-chart-route="2">Route 2</span>
+      <div class="track"><span class="seg train" style="left:22.22%;width:18.06%"></span><span class="seg wait" style="left:40.28%;width:2.78%"></span><span class="seg train" style="left:43.06%;width:33.11%"></span><span class="seg cab" style="left:76.67%;width:3.47%"></span><span class="cut"></span></div>
+      <span class="carr" data-chart-route="2">3:25 AM</span>
+
+      <span class="clabel" data-chart-route="3">Route 3</span>
+      <div class="track"><span class="seg train" style="left:8.56%;width:18.53%"></span><span class="seg wait" style="left:27.08%;width:5.56%"></span><span class="seg train" style="left:32.64%;width:38.19%"></span><span class="seg cab" style="left:71.11%;width:3.47%"></span><span class="cut"></span></div>
+      <span class="carr" data-chart-route="3">1:30 AM</span>
+
+      <span class="clabel" data-chart-route="4">Route 4</span>
+      <div class="track"><span class="seg train" style="left:28.94%;width:14.03%"></span><span class="seg wait" style="left:42.97%;width:20.92%"></span><span class="seg train" style="left:63.89%;width:24.92%"></span><span class="seg cab" style="left:89.58%;width:9.03%"></span><span class="cut"></span></div>
+      <span class="carr" data-chart-route="4">~11:30 AM</span>
+
+      <span></span>
+      <div class="axis"><span style="left:0%">Wed 12 AM</span><span style="left:16.67%">6 AM</span><span style="left:33.33%">12 PM</span><span style="left:50%">6 PM</span><span style="left:66.67%">Thu 12 AM</span><span style="left:83.33%">6 AM</span><span style="left:100%">12 PM</span><span class="cutlbl" style="left:88.89%">8 AM target</span></div>
+      <span></span>
+    </div>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Train</span><span><i style="background:repeating-linear-gradient(45deg,var(--muted) 0 2px,transparent 2px 6px)"></i>Waiting in Bangalore</span><span><i style="background:var(--warn)"></i>Cab</span><span><i style="border-left:2px dashed var(--ok);border-radius:0"></i>8 AM on Thu 17 Dec</span></div>
+  </div>
+
+  <div class="route-block" data-route="1">
+    <div class="verdict"><span class="pill info">🌅 In Goa at 3:25 AM</span><span class="pill info">⏱️ 5 hrs spare in Bangalore</span><span class="pill info">₹2,040 going</span></div>
+    <p class="callout"><span class="big">💡</span><span><b>The relaxed option.</b> The 6 AM Shatabdi gets you to Bangalore by 10:30 AM, leaving plenty of time for lunch before the Goa train from Yesvantpur.</span></p>
+    <div class="subhead">➡️ Going</div>
+    <div class="route">
+      <div class="day">📅 WED 16 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">12007 · MYSURU SHATABDI</span>
+          <h3><span class="stub-emo">🚆</span>Chennai Central → KSR Bengaluru</h3>
+          <span class="times">6:00 AM → 10:30 AM</span>
+        </div>
+        <div class="stub-side"><span class="fare">~₹1,000</span><span class="pill info">Chair car</span></div>
+      </div>
+      <div class="note-leg"><span class="big">🍛</span><span><b>Lunch in Bangalore,</b> then reach Yesvantpur by 2:45 PM. It's about 30 minutes from KSR by metro or cab.</span></div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">17309 · YPR VSG EXPRESS</span>
+          <h3><span class="stub-emo">🌙</span>Yesvantpur → Madgaon</h3>
+          <span class="times">3:30 PM → 3:25 AM <span class="muted">(17 Dec)</span></span>
+        </div>
+        <div class="stub-side"><span class="fare">₹1,040</span><span class="pill info">3AC</span></div>
+      </div>
+      <div class="day">📅 THU 17 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">CAB · 7-SEATER</span>
+          <h3><span class="stub-emo">🚕</span><span data-plan="airbnb">Madgaon → Arpora Airbnb</span><span data-plan="cm" hidden>Madgaon → Club Mahindra resort</span></h3>
+          <span class="times">Early morning, about 1 hr 15 min</span>
+        </div>
+        <div class="stub-side"><span class="fare">~₹2,500</span><span class="pill info">estimate, total</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="route-block" data-route="2" hidden>
+    <div class="verdict"><span class="pill info">🌅 In Goa at 3:25 AM</span><span class="pill info">🛏️ 3AC on both trains</span><span class="pill info">₹1,715 going</span></div>
+    <p class="callout"><span class="big">💡</span><span><b>Cheapest, but a quick change.</b> The 8 AM train reaches SMVT Bengaluru at 2:30 PM, leaving one hour to cross town to Yesvantpur for the 3:30 PM Goa train. Book a cab in advance.</span></p>
+    <div class="subhead">➡️ Going</div>
+    <div class="route">
+      <div class="day">📅 WED 16 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">22365 · DNR SMVB EXP</span>
+          <h3><span class="stub-emo">🚆</span>Perambur → SMVT Bengaluru</h3>
+          <span class="times">8:00 AM → 2:30 PM</span>
+        </div>
+        <div class="stub-side"><span class="fare">₹675</span><span class="pill info">3AC</span></div>
+      </div>
+      <div class="note-leg"><span class="big">🚖</span><span><b>Straight to Yesvantpur.</b> About 10 km across Bangalore. Keep bags light.</span></div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">17309 · YPR VSG EXPRESS</span>
+          <h3><span class="stub-emo">🌙</span>Yesvantpur → Madgaon</h3>
+          <span class="times">3:30 PM → 3:25 AM <span class="muted">(17 Dec)</span></span>
+        </div>
+        <div class="stub-side"><span class="fare">₹1,040</span><span class="pill info">3AC</span></div>
+      </div>
+      <div class="day">📅 THU 17 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">CAB · 7-SEATER</span>
+          <h3><span class="stub-emo">🚕</span>Madgaon → Arpora Airbnb</h3>
+          <span class="times">Early morning, about 1 hr 15 min</span>
+        </div>
+        <div class="stub-side"><span class="fare">~₹2,500</span><span class="pill info">estimate, total</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="route-block" data-route="3" hidden>
+    <div class="verdict"><span class="pill info">🌃 In Goa at 1:30 AM</span><span class="pill info">⏰ Leave Chennai 3:05 AM</span><span class="pill info">₹1,930 going</span></div>
+    <p class="callout"><span class="big">💡</span><span><b>The earliest into Goa.</b> A pre-dawn train gets you to Bangalore by 9:45 AM, in time for the 11:45 AM Vasco Express from Banaswadi, a short ride from SMVT.</span></p>
+    <div class="subhead">➡️ Going</div>
+    <div class="route">
+      <div class="day">📅 WED 16 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">MFP SMVB EXP</span>
+          <h3><span class="stub-emo">🚆</span>Chennai → SMVT Bengaluru</h3>
+          <span class="times">3:05 AM → 9:45 AM</span>
+        </div>
+        <div class="stub-side"><span class="fare">₹880</span><span class="pill info">3AC</span></div>
+      </div>
+      <div class="note-leg"><span class="big">☕</span><span><b>Breakfast near SMVT,</b> then a 15-minute cab to Banaswadi station.</span></div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">17316 · VASCO EXPRESS</span>
+          <h3><span class="stub-emo">🚆</span>Banaswadi → Madgaon</h3>
+          <span class="times">11:45 AM → 1:30 AM <span class="muted">(17 Dec)</span></span>
+        </div>
+        <div class="stub-side"><span class="fare">₹1,050</span><span class="pill info">3AC</span></div>
+      </div>
+      <div class="day">📅 THU 17 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">CAB · 7-SEATER</span>
+          <h3><span class="stub-emo">🚕</span>Madgaon → Arpora Airbnb</h3>
+          <span class="times">Night, about 1 hr 15 min</span>
+        </div>
+        <div class="stub-side"><span class="fare">~₹2,500</span><span class="pill info">estimate, total</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="route-block" data-route="4" hidden>
+    <div class="verdict"><span class="pill warn">🕚 In Goa about 11:30 AM</span><span class="pill info">🛏️ 3AC overnight</span><span class="pill info">₹1,585 going + cab</span></div>
+    <p class="callout"><span class="big">💡</span><span><b>Arrives after 8 AM.</b> The Rani Chennamma ends at Londa in Karnataka, about 3 hours from Goa, so the last leg is by cab. You get a full night's sleep in 3AC and a rest in Bangalore first.</span></p>
+    <div class="subhead">➡️ Going</div>
+    <div class="route">
+      <div class="day">📅 WED 16 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">22601 · MAS SNSI SF EXP</span>
+          <h3><span class="stub-emo">🚆</span>Chennai Central → KR Puram, Bangalore</h3>
+          <span class="times">10:25 AM → 3:28 PM</span>
+        </div>
+        <div class="stub-side"><span class="fare">₹675</span><span class="pill info">3AC</span></div>
+      </div>
+      <div class="note-leg"><span class="big">🛏️</span><span><b>Rest in Bangalore, about 4 PM to 10 PM,</b> at a day-use room near KSR station.</span></div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">16589 · RANI CHENNAMMA EXP</span>
+          <h3><span class="stub-emo">🌙</span>KSR Bengaluru → Londa Jn</h3>
+          <span class="times">11:00 PM → 7:58 AM <span class="muted">(17 Dec)</span></span>
+        </div>
+        <div class="stub-side"><span class="fare">₹910</span><span class="pill info">3AC</span></div>
+      </div>
+      <div class="day">📅 THU 17 DEC</div>
+      <div class="stub">
+        <div class="stub-main">
+          <span class="trainno">CAB · 7-SEATER</span>
+          <h3><span class="stub-emo">🚕</span>Londa → Arpora Airbnb</h3>
+          <span class="times">8:15 AM → about 11:30 AM</span>
+        </div>
+        <div class="stub-side"><span class="fare">~₹5,500</span><span class="pill info">estimate, total</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-leg"><span class="big">🔑</span><span><b>Check-in is usually in the afternoon.</b> Ask the host about early check-in, or leave bags and head to a beach.</span></div>
+
+  <div class="subhead">⬅️ Coming back <span class="muted" style="font-weight:400">(same for every route)</span></div>
+  <div class="route">
+    <div class="day">📅 SUN 20 DEC</div>
+    <div class="note-leg"><span class="big">🌇</span><span><b>A full last day in Goa.</b> The train leaves late at night, so keep the rental car until evening.</span></div>
+    <div class="stub">
+      <div class="stub-main">
+        <span class="trainno">CAB · 7-SEATER</span>
+        <h3><span class="stub-emo">🚕</span><span data-plan="airbnb">Arpora → Madgaon</span><span data-plan="cm" hidden>Club Mahindra resort → Madgaon</span></h3>
+        <span class="times">Leave by about 9:30 PM</span>
+      </div>
+      <div class="stub-side"><span class="fare">~₹2,500</span><span class="pill info">estimate, total</span></div>
+    </div>
+    <div class="stub">
+      <div class="stub-main">
+        <span class="trainno">17310 · VSG YPR EXPRESS</span>
+        <h3><span class="stub-emo">🌙</span>Madgaon → Yesvantpur</h3>
+        <span class="times">11:35 PM → 12:35 PM <span class="muted">(21 Dec)</span></span>
+      </div>
+      <div class="stub-side"><span class="fare">₹1,040</span><span class="pill info">3AC</span></div>
+    </div>
+    <div class="day">📅 MON 21 DEC</div>
+    <div class="stub">
+      <div class="stub-main">
+        <span class="trainno">20608 · MAS VANDE BHARAT</span>
+        <h3><span class="stub-emo">🚆</span>KSR Bengaluru → Chennai Central</h3>
+        <span class="times">2:50 PM → 7:20 PM</span>
+      </div>
+      <div class="stub-side"><span class="fare">₹970</span><span class="pill info">Chair car</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="ico">🏡</span>Where we stay</h2>
+  <div class="stay" data-plan="cm" hidden>
+    <div class="stay-top">
+      <div>
+        <span class="eyebrow">Club Mahindra · 17–20 Dec · 3 nights</span>
+        <h3 style="margin-top:0.4rem">🏨 Club Mahindra Goa resort</h3>
+      </div>
+    </div>
+    <p>💸 Stay cost is the member's Club Mahindra charges, split 6 ways. The Airbnb share of ₹3,703 each drops out.</p>
+    <p>📍 Most Club Mahindra Goa resorts are in South Goa, closer to Madgaon station but further from Baga.</p>
+    <p>❌ Cancel the Airbnb <b>by 15 Dec</b> to get the full refund.</p>
+  </div>
+  <div class="stay" data-plan="airbnb">
+    <div class="stay-top">
+      <div>
+        <span class="eyebrow">Airbnb · 17–20 Dec · 3 nights</span>
+        <h3 style="margin-top:0.4rem">🛌 Cozy 2+1 BHK, Arpora | Baga</h3>
+      </div>
+      <div class="price">₹22,217<s>₹29,622</s></div>
+    </div>
+    <p>✅ All fees included. That is <b>₹3,703 each</b> for 6 people. <span class="pill ok">Free cancellation before 16 Dec</span></p>
+    <p>🔗 <a href="https://www.airbnb.co.in/rooms/1296906884495283002?adults=6&check_in=2026-12-17&check_out=2026-12-20&guests=6" target="_blank" rel="noopener">Open the listing on Airbnb</a></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="ico">💰</span>Budget per person</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Item</th><th class="num">Each</th></tr></thead>
+      <tbody>
+        <tr data-route="1"><td><span class="emo">🚆</span>Trains<small>~₹1,000 + ₹1,040 going, ₹1,040 + ₹970 back</small></td><td class="num">₹4,050</td></tr>
+        <tr data-route="2" hidden><td><span class="emo">🚆</span>Trains<small>₹675 + ₹1,040 going, ₹1,040 + ₹970 back</small></td><td class="num">₹3,725</td></tr>
+        <tr data-route="3" hidden><td><span class="emo">🚆</span>Trains<small>₹880 + ₹1,050 going, ₹1,040 + ₹970 back</small></td><td class="num">₹3,940</td></tr>
+        <tr data-route="4" hidden><td><span class="emo">🚆</span>Trains<small>₹675 + ₹910 going, ₹1,040 + ₹970 back</small></td><td class="num">₹3,595</td></tr>
+        <tr data-route="1 2 3"><td><span class="emo">🚕</span>Madgaon ↔ stay cabs<span class="tag">estimate</span><small>About ₹2,500 each way, split 6 ways</small></td><td class="num">₹833</td></tr>
+        <tr data-route="4" hidden><td><span class="emo">🚕</span>Cabs<span class="tag">estimate</span><small>Londa → Arpora ~₹5,500, Arpora → Madgaon ~₹2,500, split 6 ways</small></td><td class="num">₹1,334</td></tr>
+        <tr data-route="4" hidden><td><span class="emo">🛏️</span>Bangalore day-use room<span class="tag">estimate</span></td><td class="num">₹400</td></tr>
+        <tr data-plan="airbnb"><td><span class="emo">🏡</span>Airbnb, 3 nights<small>₹22,217 ÷ 6</small></td><td class="num">₹3,703</td></tr>
+        <tr data-plan="cm" hidden><td><span class="emo">🏨</span>Club Mahindra, 3 nights<span class="tag">to confirm</span><small>Member charges ÷ 6</small></td><td class="num">CM</td></tr>
+        <tr><td><span class="emo">🚙</span>Goa self-drive 7-seater, 3 days with fuel<span class="tag">estimate</span></td><td class="num">₹2,000</td></tr>
+        <tr><td><span class="emo">🍤</span>Food<small>About ₹1,200 a day</small></td><td class="num">₹5,000</td></tr>
+        <tr><td><span class="emo">🎉</span>Activities and extras</td><td class="num">₹2,000</td></tr>
+        <tr class="total" data-plan="airbnb" data-route="1"><td><span class="emo">🧾</span>Total (keep ₹19,500 ready)</td><td class="num">₹17,586</td></tr>
+        <tr class="total" data-plan="airbnb" data-route="2" hidden><td><span class="emo">🧾</span>Total (keep ₹19,000 ready)</td><td class="num">₹17,261</td></tr>
+        <tr class="total" data-plan="airbnb" data-route="3" hidden><td><span class="emo">🧾</span>Total (keep ₹19,500 ready)</td><td class="num">₹17,476</td></tr>
+        <tr class="total" data-plan="airbnb" data-route="4" hidden><td><span class="emo">🧾</span>Total (keep ₹20,000 ready)</td><td class="num">₹18,032</td></tr>
+        <tr class="total" data-plan="cm" hidden><td><span class="emo">🧾</span>Total before Club Mahindra charges</td><td class="num">₹13,883 + CM</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted">Routes 1–3 need no Bangalore room, so the car is the only cost against the ₹3,000 cap. Train fares and the Airbnb price are from MakeMyTrip and Airbnb on 25 Oct 2026. The Shatabdi fare, cabs and car are estimates.</p>
+</section>
+
+<section>
+  <h2><span class="ico">✅</span>Book in this order</h2>
+  <ol class="steps" data-route="1">
+    <li>🌙 <b>17309 Yesvantpur → Madgaon, 16 Dec</b>, 3AC.</li>
+    <li>🌙 <b>17310 Madgaon → Yesvantpur, 20 Dec</b>, 3AC.</li>
+    <li>🚆 <b>12007 Shatabdi, 16 Dec</b> and <b>20608 Vande Bharat, 21 Dec</b>.</li>
+    <li data-plan="airbnb">🏡 <b>The Airbnb</b>, before the price changes.</li>
+    <li data-plan="cm" hidden>🏡 <b>The Airbnb anyway</b>, as the backup. Cancel it by 15 Dec once Club Mahindra confirms.</li>
+    <li>🚕 The Madgaon cabs and the Goa rental car, closer to the date.</li>
+  </ol>
+  <ol class="steps" data-route="2" hidden>
+    <li>🌙 <b>17309 Yesvantpur → Madgaon, 16 Dec</b>, 3AC.</li>
+    <li>🌙 <b>17310 Madgaon → Yesvantpur, 20 Dec</b>, 3AC.</li>
+    <li>🚆 <b>22365 Perambur → SMVT, 16 Dec</b> and <b>20608 Vande Bharat, 21 Dec</b>.</li>
+    <li>🏡 <b>The Airbnb</b>, before the price changes.</li>
+    <li>🚖 A cab for the SMVT → Yesvantpur change, plus the Madgaon cabs and Goa rental car.</li>
+  </ol>
+  <ol class="steps" data-route="3" hidden>
+    <li>🚆 <b>17316 Banaswadi → Madgaon, 16 Dec</b>, 3AC.</li>
+    <li>🌙 <b>17310 Madgaon → Yesvantpur, 20 Dec</b>, 3AC.</li>
+    <li>🚆 <b>MFP SMVB Exp to Bangalore, 16 Dec 3:05 AM</b> and <b>20608 Vande Bharat, 21 Dec</b>.</li>
+    <li>🏡 <b>The Airbnb</b>, before the price changes.</li>
+    <li>🚕 The Madgaon cabs and the Goa rental car, closer to the date.</li>
+  </ol>
+  <ol class="steps" data-route="4" hidden>
+    <li>🌙 <b>16589 Rani Chennamma, 16 Dec</b>, 3AC.</li>
+    <li>🌙 <b>17310 Madgaon → Yesvantpur, 20 Dec</b>, 3AC.</li>
+    <li>🚆 <b>22601 Chennai → KR Puram, 16 Dec</b> and <b>20608 Vande Bharat, 21 Dec</b>.</li>
+    <li>🏡 <b>The Airbnb</b>, before the price changes.</li>
+    <li>🚕 The Bangalore day-use room, the Londa and Madgaon cabs, and the Goa rental car.</li>
+  </ol>
+  <ul class="plain muted">
+    <li>🎟️ One IRCTC booking can hold all 6 passengers.</li>
+    <li>🔄 Check seats on IRCTC or MakeMyTrip before paying.</li>
+  </ul>
+</section>
+
+<footer>Plan prepared 25 Oct 2026 from Airbnb and MakeMyTrip listings. Nothing has been booked yet.</footer>
+</div>
+
+<script>
+(function () {
+  var plan = 'airbnb', route = '1';
+  var planButtons = document.querySelectorAll('[data-set]');
+  var routeButtons = document.querySelectorAll('[data-route-set]');
+  function apply() {
+    // Plan B (Club Mahindra) always uses route 1
+    var r = plan === 'cm' ? '1' : route;
+    document.querySelectorAll('[data-plan],[data-route]').forEach(function (el) {
+      var show = (!el.dataset.plan || el.dataset.plan === plan) && (!el.dataset.route || el.dataset.route.split(' ').indexOf(r) !== -1);
+      el.hidden = !show;
+    });
+    document.querySelectorAll('[data-chart-route]').forEach(function (el) { el.classList.toggle('on', el.dataset.chartRoute === r); });
+    planButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.set === plan)); });
+    routeButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.routeSet === route)); });
+    try { localStorage.setItem('goa-plan', plan); localStorage.setItem('goa-route', route); } catch (e) {}
+  }
+  planButtons.forEach(function (b) { b.addEventListener('click', function () { plan = b.dataset.set; apply(); }); });
+  routeButtons.forEach(function (b) { b.addEventListener('click', function () { route = b.dataset.routeSet; apply(); }); });
+  try {
+    if (localStorage.getItem('goa-plan') === 'cm') plan = 'cm';
+    var saved = localStorage.getItem('goa-route');
+    if (/^[1-4]$/.test(saved || '')) route = saved;
+  } catch (e) {}
+  var h = location.hash;
+  if (h === '#clubmahindra') plan = 'cm';
+  else if (h === '#airbnb') plan = 'airbnb';
+  else if (/^#route[1-4]$/.test(h)) { plan = 'airbnb'; route = h.slice(6); }
+  apply();
+})();
+</script>
+</body>
+</html>
